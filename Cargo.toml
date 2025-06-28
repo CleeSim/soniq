@@ -1,0 +1,14 @@
+[package]
+name = "soniq"
+version = "0.0.1"
+authors = ["iku <iku@cleesim.com>"]
+description = "A Rust library to interact with the Last.fm API."
+documentation = "https://docs.rs/soniq"
+homepage = "https://github.com/CleeSim/soniq"
+repository = "https://github.com/CleeSim/soniq.git"
+keywords = ["last", "fm", "api", "scrobble"]
+license = "MIT"
+edition = "2024"
+rust-version = "1.88.0"
+
+[dependencies]
