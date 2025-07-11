@@ -18,9 +18,11 @@ async fn main() {
         .await
         .expect("Failed to fetch user info");
 
+    let total_plays = soniq::utils::format_number(user.playcount as i64);
+
     println!(
         "{} has {} total plays ({})",
-        user.name, user.playcount, user.url
+        user.name, total_plays, user.url
     );
 
     let friends = client.user().get_friends("unb_").await;
