@@ -88,6 +88,24 @@ pub fn format_duration_human(seconds: u64) -> String {
     parts.join(" ")
 }
 
+/// Formats a number with commas as thousands separators.
+pub fn format_number(num: i64) -> String {
+    let num_str = num.to_string();
+    let mut result = String::new();
+    let mut count = 0;
+
+    for c in num_str.chars().rev() {
+        if count > 0 && count % 3 == 0 {
+            result.push(',');
+        }
+        result.push(c);
+        count += 1;
+    }
+
+    // Reverse the result to get the correct order
+    result.chars().rev().collect()
+}
+
 /// Computes the percentage of a value relative to the total.
 /// Returns `None` if total is zero.
 pub fn percent(value: u64, total: u64) -> Option<f64> {
