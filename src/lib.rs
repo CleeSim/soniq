@@ -10,4 +10,5 @@ pub mod models;
 pub mod sig;
 pub mod utils;
 
+pub use crate::client::Client;
 pub use crate::error::Error;
