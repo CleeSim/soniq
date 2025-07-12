@@ -10,7 +10,7 @@ async fn main() {
     let api_secret = env::var("LASTFM_API_SECRET").expect("Set LASTFM_API_SECRET env var");
 
     let client = Client::builder(api_key.clone())
-        .api_secret(api_secret.clone())
+        .api_secret(api_secret)
         .build()
         .expect("Failed to build client");
 
