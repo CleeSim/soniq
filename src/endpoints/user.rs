@@ -5,7 +5,10 @@ use std::collections::BTreeMap;
 use crate::{
     client::Client,
     error::Error,
-    models::user::{UserFriends, UserGetFriendsResponse, UserGetInfoResponse, UserInfo},
+    models::user::{
+        LovedTracks, UserFriends, UserGetFriendsResponse, UserGetInfoResponse,
+        UserGetLovedTracksResponse, UserInfo,
+    },
 };
 
 /// Extension trait that provides user-related API methods.
@@ -51,5 +54,20 @@ impl<'a> UserHandler<'a> {
             self.client.unsigned_get("user.getFriends", params).await?;
 
         Ok(response.friends)
+    }
+
+    /// Get a list of loved tracks for a Last.fm user.
+    ///
+    /// [API Reference](https://www.last.fm/api/show/user.getLovedTracks)
+    pub async fn get_loved_tracks(&self, username: &str) -> Result<LovedTracks, Error> {
+        let mut params = BTreeMap::new();
+        params.insert("user".into(), username.to_string());
+
+        let response: UserGetLovedTracksResponse = self
+            .client
+            .unsigned_get("user.getLovedTracks", params)
+            .await?;
+
+        Ok(response.lovedtracks)
     }
 }

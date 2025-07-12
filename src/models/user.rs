@@ -2,7 +2,7 @@
 
 use serde::Deserialize;
 
-use crate::models::common::Image;
+use crate::models::common::{Image, PaginationMeta};
 use crate::utils::{from_str, from_str_opt};
 
 /// Response wrapper from the API: `{ "user": { ... } }`
@@ -60,26 +60,8 @@ pub struct UserGetFriendsResponse {
 #[derive(Debug, Deserialize)]
 pub struct UserFriends {
     #[serde(rename = "@attr")]
-    pub attr: UserFriendsAttributes,
+    pub attr: PaginationMeta,
     pub user: Vec<Friend>,
-}
-
-/// Pagination attributes for the friends list.
-#[derive(Debug, Deserialize)]
-pub struct UserFriendsAttributes {
-    pub user: String,
-
-    #[serde(rename = "totalPages", deserialize_with = "from_str")]
-    pub total_pages: u32,
-
-    #[serde(deserialize_with = "from_str")]
-    pub page: u32,
-
-    #[serde(rename = "perPage", deserialize_with = "from_str")]
-    pub per_page: u32,
-
-    #[serde(deserialize_with = "from_str")]
-    pub total: u32,
 }
 
 /// A single friend object.
@@ -120,4 +102,55 @@ pub struct FriendRegistered {
 
     #[serde(deserialize_with = "from_str")]
     pub unixtime: i64,
+}
+
+/// Response wrapper for loved tracks: `{ "lovedtracks": { ... } }`
+#[derive(Debug, Deserialize)]
+pub struct UserGetLovedTracksResponse {
+    pub lovedtracks: LovedTracks,
+}
+
+/// A list of loved tracks and pagination info.
+#[derive(Debug, Deserialize)]
+pub struct LovedTracks {
+    #[serde(rename = "@attr")]
+    pub attr: PaginationMeta,
+    pub track: Vec<LovedTrack>,
+}
+
+/// A single loved track object.
+#[derive(Debug, Deserialize)]
+pub struct LovedTrack {
+    pub artist: LovedTrackArtist,
+    pub name: String,
+    pub url: String,
+    pub date: LovedTrackDate,
+    pub image: Vec<Image>,
+    pub streamable: Streamable,
+    pub mbid: Option<String>,
+}
+
+/// Artist info for a loved track.
+#[derive(Debug, Deserialize)]
+pub struct LovedTrackArtist {
+    pub name: String,
+    pub mbid: Option<String>,
+    pub url: String,
+}
+
+/// Date info for when a track was loved.
+#[derive(Debug, Deserialize)]
+pub struct LovedTrackDate {
+    pub uts: String,
+    #[serde(rename = "#text")]
+    pub text: String,
+}
+
+/// Streamability info for a loved track.
+#[derive(Debug, Deserialize)]
+pub struct Streamable {
+    #[serde(deserialize_with = "from_str")]
+    pub fulltrack: u8,
+    #[serde(rename = "#text", deserialize_with = "from_str")]
+    pub is_streamable: u8,
 }

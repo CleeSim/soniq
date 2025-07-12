@@ -1,4 +1,4 @@
-//! Error types for the soniq client.
+//! Error types for the Soniq client.
 
 use reqwest::StatusCode;
 use serde::{Deserialize, Serialize};
