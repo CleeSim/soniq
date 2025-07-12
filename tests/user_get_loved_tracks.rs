@@ -4,7 +4,7 @@ use soniq::client::Client;
 use tokio;
 
 #[tokio::test]
-async fn test_user_get_friends() {
+async fn test_user_get_loved_tracks() {
     dotenv::dotenv().expect("Failed to load .env file");
 
     let api_key = env::var("LASTFM_API_KEY").expect("Set LASTFM_API_KEY env var");
