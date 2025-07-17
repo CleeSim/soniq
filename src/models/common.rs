@@ -29,14 +29,3 @@ pub struct PaginationMeta {
     #[serde(deserialize_with = "from_str")]
     pub total: u32,
 }
-
-/// For OpenSearch-like paging (used in search results)
-#[derive(Debug, Deserialize)]
-pub struct OpenSearchMeta {
-    #[serde(rename = "opensearch:totalResults")]
-    pub total_results: u64,
-    #[serde(rename = "opensearch:startIndex")]
-    pub start_index: u64,
-    #[serde(rename = "opensearch:itemsPerPage")]
-    pub items_per_page: u64,
-}

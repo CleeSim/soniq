@@ -149,6 +149,7 @@ impl Client {
 }
 
 impl Client {
+    /// Handler for user-related endpoints.
     pub fn user(&self) -> crate::endpoints::user::UserHandler<'_> {
         crate::endpoints::user::UserEndpointExt::user(self)
     }
